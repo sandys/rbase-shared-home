@@ -14,7 +14,7 @@ RUN echo "deb http://ppa.launchpad.net/webupd8team/java/ubuntu trusty main" \
     && echo "oracle-java8-installer shared/accepted-oracle-license-v1-1 select true" \
         | /usr/bin/debconf-set-selections \
     && apt-get update \
-    && apt-get install -y oracle-java8-installer \
+    && apt-get install -y libpq-dev oracle-java8-installer \
     && update-alternatives --display java \
     && rm -rf /var/lib/apt/lists/* \
     && apt-get clean \
@@ -43,4 +43,41 @@ RUN curl -o /usr/local/bin/gosu -SL "https://github.com/tianon/gosu/releases/dow
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod 755 /usr/local/bin/entrypoint.sh
 USER root
+
+RUN Rscript -e "install.packages('DBI'); \ 
+install.packages('dbplyr'); \ 
+install.packages('DescTools'); \ 
+install.packages('dplyr'); \ 
+install.packages('ggplot2'); \ 
+install.packages('googlesheets'); \ 
+install.packages('gtools'); \ 
+install.packages('httpuv'); \ 
+install.packages('knitr'); \ 
+install.packages('lubridate'); \ 
+install.packages('mailR'); \ 
+install.packages('markdown'); \ 
+install.packages('quantmod'); \ 
+install.packages('readr'); \ 
+install.packages('reshape2'); \ 
+install.packages('RForcecom'); \ 
+install.packages('RODBC'); \ 
+install.packages('RPostgreSQL'); \ 
+install.packages('sqldf'); \ 
+install.packages('stringi'); \ 
+install.packages('tidyr'); \ 
+install.packages('timeDate'); \ 
+install.packages('tvm'); \ 
+install.packages('urltools'); \ 
+install.packages('uuid'); \ 
+install.packages('xtable');"
+
+
+RUN Rscript -e "install.packages('huxtable'); \ 
+install.packages('httpuvnder'); \ 
+install.packages('kableExtra');"
+ 
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+
+
+ 
+
